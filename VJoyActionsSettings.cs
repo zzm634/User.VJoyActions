@@ -1,13 +1,13 @@
 ﻿using SimHub.Plugins.OutputPlugins.Dash.GLCDTemplating;
 using System.ComponentModel;
 
-namespace User.PluginSdkDemo
+namespace User.VJoyActions
 {
     // I recognize this is not the best way to do "a two dimensional array of very similar values", but thesw WPF bindings have me at my wits end.  
 
-    public class DataPluginDemoSettings
+    public class VJoyActionsSettings
     {
-
+        // The order in which vJoy axes are listed and configured in the UI.
         public static readonly HID_USAGES[] AXIS_ORDER = {
             HID_USAGES.HID_USAGE_X,
             HID_USAGES.HID_USAGE_Y,
@@ -27,9 +27,8 @@ namespace User.PluginSdkDemo
             HID_USAGES.HID_USAGE_THROTTLE
         };
 
+        // Expressions for each axis and device
         public ExpressionValue[] Expresions = new ExpressionValue[16 * 16];
-
-
 
         private static void fillBlankExpressions(ExpressionValue[] e)
         {
@@ -39,9 +38,10 @@ namespace User.PluginSdkDemo
             }
         }
 
-        public static DataPluginDemoSettings newBlankSettings()
+        // Create a new settings object filled with empty expressions.
+        public static VJoyActionsSettings newBlankSettings()
         {
-            DataPluginDemoSettings settings = new DataPluginDemoSettings();
+            VJoyActionsSettings settings = new VJoyActionsSettings();
             fillBlankExpressions(settings.Expresions);
 
             return settings;

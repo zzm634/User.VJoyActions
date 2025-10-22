@@ -1,5 +1,4 @@
-﻿using GameReaderCommon;
-using SimHub.Plugins;
+﻿using SimHub.Plugins;
 using SimHub.Plugins.OutputPlugins.Dash.GLCDTemplating;
 using SimHub.Plugins.OutputPlugins.Dash.TemplatingCommon;
 using System;
@@ -9,16 +8,16 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using vJoyInterfaceWrap;
 
-namespace User.PluginSdkDemo
+namespace User.VJoyActions
 {
-    [PluginDescription("My plugin description")]
-    [PluginAuthor("Author")]
-    [PluginName("Demo plugin")]
-    public class DataPluginDemo : IPlugin, IWPFSettings
+    [PluginDescription("Control vJoy axes and buttons with SimHub expressions and events.")]
+    [PluginAuthor("Zach C Miller")]
+    [PluginName("vJoy Actions")]
+    public class VJoyActionsPlugin : IPlugin, IWPFSettingsV2, IInputPlugin
     {
         private HashSet<uint> acquiredVJoyDevices = new HashSet<uint>();
 
-        public DataPluginDemoSettings settings;
+        public VJoyActionsSettings settings;
 
         private vJoy vjoy = new vJoy();
 
@@ -49,6 +48,9 @@ namespace User.PluginSdkDemo
 
         public PluginManager PluginManager { get; set; }
 
+        public ImageSource PictureIcon => this.ToIcon(Properties.Resources.sdkmenuicon);
+        public string LeftMenuTitle => "vJoy Actions";
+
         public void End(PluginManager pluginManager)
         {
             this.SaveCommonSettings("VJoyAxisSettings3", this.settings);
@@ -66,7 +68,7 @@ namespace User.PluginSdkDemo
         {
             SimHub.Logging.Current.Info("VJoy2 v1.1.0.0");
 
-            this.settings = this.ReadCommonSettings<DataPluginDemoSettings>("VJoyAxisSettings3", () => DataPluginDemoSettings.newBlankSettings());
+            this.settings = this.ReadCommonSettings<VJoyActionsSettings>("VJoyAxisSettings3", () => VJoyActionsSettings.newBlankSettings());
 
             if (this.settings.Expresions[0] == null)
             {
@@ -90,7 +92,7 @@ namespace User.PluginSdkDemo
                                 {
                                     uint b = button;
 
-                                    pluginManager.AddInputMapping<DataPluginDemo>(String.Format("Joy{0}_Button{1}", d, b), (pm, s) =>
+                                    pluginManager.AddInputMapping<VJoyActionsPlugin>(String.Format("Joy{0}_Button{1}", d, b), (pm, s) =>
                                     {
                                         if (ensureAcquired(d))
                                         {
@@ -130,7 +132,7 @@ namespace User.PluginSdkDemo
             // However, it's only 256 checks max, and it short-circuits pretty early in the process if there's no vjoy device, axis, or if the expression was null. I just don't know how performant ExpressionValue.ExpressionIsNullOrWhiteSpace is.
             // Also, caching this information would require restarting SimHub if the user reconfigures vJoy to add devices or axes, since we can't detect that AFAIK
 
-            updateAxisExpressions(settings.Expresions, DataPluginDemoSettings.AXIS_ORDER);
+            updateAxisExpressions(settings.Expresions, VJoyActionsSettings.AXIS_ORDER);
         }
 
         private void updateAxisExpressions(ExpressionValue[] expressions, HID_USAGES[] axisOrder)
@@ -178,7 +180,7 @@ namespace User.PluginSdkDemo
 
         public Control GetWPFSettingsControl(PluginManager pluginManager)
         {
-            return new SettingsControlDemo(this);
+            return new VJoyActionsSettingsControl(this);
         }
     }
 }
