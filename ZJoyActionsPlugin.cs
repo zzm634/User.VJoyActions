@@ -8,16 +8,16 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using vJoyInterfaceWrap;
 
-namespace User.VJoyActions
+namespace User.ZJoyActions
 {
     [PluginDescription("Control vJoy axes and buttons with SimHub expressions and events.")]
     [PluginAuthor("Zach C Miller")]
     [PluginName("vJoy Actions")]
-    public class VJoyActionsPlugin : IPlugin, IWPFSettingsV2, IInputPlugin
+    public class ZJoyActionsPlugin : IPlugin, IWPFSettingsV2, IInputPlugin
     {
         private HashSet<uint> acquiredVJoyDevices = new HashSet<uint>();
 
-        public VJoyActionsSettings settings;
+        public ZJoyActionsSettings settings;
 
         private vJoy vjoy = new vJoy();
 
@@ -66,9 +66,9 @@ namespace User.VJoyActions
 
         public void Init(PluginManager pluginManager)
         {
-            SimHub.Logging.Current.Info("VJoy2 v1.1.0.0");
+            SimHub.Logging.Current.Info("ZJoy v1.1.0.1");
 
-            this.settings = this.ReadCommonSettings<VJoyActionsSettings>("VJoyAxisSettings3", () => VJoyActionsSettings.newBlankSettings());
+            this.settings = this.ReadCommonSettings<ZJoyActionsSettings>("VJoyAxisSettings3", () => ZJoyActionsSettings.newBlankSettings());
 
             if (this.settings.Expresions[0] == null)
             {
@@ -92,7 +92,7 @@ namespace User.VJoyActions
                                 {
                                     uint b = button;
 
-                                    pluginManager.AddInputMapping<VJoyActionsPlugin>(String.Format("Joy{0}_Button{1}", d, b), (pm, s) =>
+                                    pluginManager.AddInputMapping<ZJoyActionsPlugin>(String.Format("Joy{0}_Button{1}", d, b), (pm, s) =>
                                     {
                                         if (ensureAcquired(d))
                                         {
@@ -132,7 +132,7 @@ namespace User.VJoyActions
             // However, it's only 256 checks max, and it short-circuits pretty early in the process if there's no vjoy device, axis, or if the expression was null. I just don't know how performant ExpressionValue.ExpressionIsNullOrWhiteSpace is.
             // Also, caching this information would require restarting SimHub if the user reconfigures vJoy to add devices or axes, since we can't detect that AFAIK
 
-            updateAxisExpressions(settings.Expresions, VJoyActionsSettings.AXIS_ORDER);
+            updateAxisExpressions(settings.Expresions, ZJoyActionsSettings.AXIS_ORDER);
         }
 
         private void updateAxisExpressions(ExpressionValue[] expressions, HID_USAGES[] axisOrder)
@@ -180,7 +180,7 @@ namespace User.VJoyActions
 
         public Control GetWPFSettingsControl(PluginManager pluginManager)
         {
-            return new VJoyActionsSettingsControl(this);
+            return new ZJoyActionsSettingsControl(this);
         }
     }
 }

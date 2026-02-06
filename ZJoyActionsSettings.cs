@@ -1,11 +1,11 @@
 ﻿using SimHub.Plugins.OutputPlugins.Dash.GLCDTemplating;
 using System.ComponentModel;
 
-namespace User.VJoyActions
+namespace User.ZJoyActions
 {
     // I recognize this is not the best way to do "a two dimensional array of very similar values", but thesw WPF bindings have me at my wits end.  
 
-    public class VJoyActionsSettings
+    public class ZJoyActionsSettings
     {
         // The order in which vJoy axes are listed and configured in the UI.
         public static readonly HID_USAGES[] AXIS_ORDER = {
@@ -39,9 +39,9 @@ namespace User.VJoyActions
         }
 
         // Create a new settings object filled with empty expressions.
-        public static VJoyActionsSettings newBlankSettings()
+        public static ZJoyActionsSettings newBlankSettings()
         {
-            VJoyActionsSettings settings = new VJoyActionsSettings();
+            ZJoyActionsSettings settings = new ZJoyActionsSettings();
             fillBlankExpressions(settings.Expresions);
 
             return settings;

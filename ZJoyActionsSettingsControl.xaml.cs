@@ -4,23 +4,23 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
-namespace User.VJoyActions
+namespace User.ZJoyActions
 {
     
 
     /// <summary>
     /// Logique d'interaction pour VJoyActionsSettingsControl.xaml
     /// </summary>
-    public partial class VJoyActionsSettingsControl : UserControl
+    public partial class ZJoyActionsSettingsControl : UserControl
     {
-        public VJoyActionsPlugin Plugin { get; }
+        public ZJoyActionsPlugin Plugin { get; }
 
-        public VJoyActionsSettingsControl()
+        public ZJoyActionsSettingsControl()
         {
             InitializeComponent();
         }
 
-        public VJoyActionsSettingsControl(VJoyActionsPlugin plugin) : this()
+        public ZJoyActionsSettingsControl(ZJoyActionsPlugin plugin) : this()
         {
             this.Plugin = plugin;
 
