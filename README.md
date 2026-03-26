@@ -6,7 +6,8 @@ Additionally, vJoy axes can be controlled using NCalc/Javascript expressions.
 
 ## Installation
 
-1) Download the latest release and copy `User.VJoyActions.dll` to your SimHub install directory.
+1) Download the latest release and copy `User.ZJoyActions.dll` to your SimHub install directory.
+<del>
 2) For unknown reasons, SimHub will not auto-detect this plugin. Until I can fix this... 
     1) Open `SimHub/PluginsData/Common/ResolveCache.json` in the text editor of your choice
     2) Add an entry for this plugin to the `"UserPlugins"` array by appending this to the bottom of it.
@@ -18,6 +19,7 @@ Additionally, vJoy axes can be controlled using NCalc/Javascript expressions.
     ```
 
     3) Don't forget to add a comma after the previous plugin entry.
+</del>
 
 ## Usage
 
